@@ -34,23 +34,23 @@ config_runtime = {
 
 classifiers = {
     # "Logit" : LogisticRegression(),
-    #     "SGD" : SGDClassifier(max_iter=1000, tol=1e-3),
-    #     "MLP_1" : MLPClassifier(alpha = 1, solver='sgd', max_iter = 5000, learning_rate='adaptive'),
+         "SGD" : SGDClassifier(max_iter=1000, tol=1e-3),
+         "MLP_1" : MLPClassifier(alpha = 1, solver='sgd', max_iter = 5000, learning_rate='adaptive'),
     #     "MLP_2" : MLPClassifier(alpha=3, solver='sgd', max_iter = 5000,  learning_rate='adaptive'),
-    #     "K-neigh" : KNeighborsClassifier(3),
-    #     "SVN_1" : SVC(kernel="linear", C=0.025),
+         "K-neigh" : KNeighborsClassifier(3),
+         "SVN_1" : SVC(kernel="linear", C=0.025),
     #     # "SVN_2" : SVC(gamma=2, C=1),
     #     "Gauss" : GaussianProcessClassifier(1.0 * RBF(1.0)),
     "Tree": DecisionTreeClassifier(max_depth=8),
     "Tree w": DecisionTreeClassifier(max_depth=8, class_weight='balanced'),
-    # "Forest 1" : RandomForestClassifier(class_weight = 'balanced'),
-    #     "Forest 1" : RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
+    "Forest 1" : RandomForestClassifier(class_weight = 'balanced'),
+    "Forest 1" : RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
     #     "Forest def" : RandomForestClassifier(),
     #     "Forest 2" : RandomForestClassifier(n_estimators=450, max_depth= 10, random_state=0),
     # "Ada 1" : AdaBoostClassifier(n_estimators=10, random_state=0),
     # "GBCls": GradientBoostingClassifier(n_estimators=100, learning_rate=1.0, random_state=0),
-    "LGBMC": LGBMClassifier(class_weight={0:5, 1:5, 2:1})
+    "LGBMC": LGBMClassifier(class_weight={0:5, 1:5, 2:1}),
     #     "Ada def" : AdaBoostClassifier(),
-    #     "GaussNB" : GaussianNB(),
+         "GaussNB" : GaussianNB(),
     #     "QDA" : QuadraticDiscriminantAnalysis()
 }

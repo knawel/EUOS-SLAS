@@ -7,7 +7,7 @@ import os
 # Sk learn
 
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, cohen_kappa_score
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 import config
@@ -41,12 +41,13 @@ if __name__ == '__main__':
         model = pipeline.fit(X_train, y_train)
         predictions = model.predict(X_test)
         score = f1_score(predictions, y_test, average=None)
-        print(f'Model:{cls}; score:{score}')
+        score2 = cohen_kappa_score(predictions, y_test)
+        print(f'Model:{cls}; score:{score2}')
 
         sum_score = score[0] + score[1]
-        if sum_score > best_model[1]:
-            best_model = [model, sum_score]
-
+        if score2 > best_model[1]:
+            best_model = [model, score2]
+    print(best_model)
     with open('model.pickle', 'wb') as handle:
         pickle.dump(best_model[0], handle, protocol=pickle.HIGHEST_PROTOCOL)
 
