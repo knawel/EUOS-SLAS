@@ -13,13 +13,18 @@ device = pt.device("cuda" if pt.cuda.is_available() else "cpu")
 # hidden_layers = 25
 # # number of classes (unique of y)
 # output_dim = 3
-class Network(nn.Module):
-  def __init__(self, input_dim, hidden_layers, output_dim):
-    super(Network, self).__init__()
-    self.linear1 = nn.Linear(input_dim, hidden_layers)
-    self.linear2 = nn.Linear(hidden_layers, output_dim)
-
-  def forward(self, x):
-    x = torch.sigmoid(self.linear1(x))
-    x = self.linear2(x)
-    return x
+class NeuralNet(nn.Module):
+    def __init__(self, input_size, hidden_size, num_classes):
+        super(NeuralNet, self).__init__()
+        self.fc1 = nn.Linear(input_size, hidden_size) 
+        self.relu = nn.ReLU()
+        self.hid = nn.Linear(hidden_size, hidden_size) 
+        self.fc2 = nn.Linear(hidden_size, num_classes)  
+    
+    def forward(self, x):
+        out = self.fc1(x)
+        out = self.relu(out)
+        out = self.hid(out)
+        out = self.relu(out)
+        out = self.fc2(out)
+        return out
