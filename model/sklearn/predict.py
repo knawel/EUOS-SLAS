@@ -7,10 +7,11 @@ if __name__ == '__main__':
     # train model
     data_folder = config.config_data['dataset_filepath']
     X = pd.read_pickle(join(data_folder, "test.pk"))
-    props = ['ALogP', 'ALogp2', 'AMR', 'nAcid', 'naAromAtom', 'nAromBond',
-             'nBase', 'nB', 'nHBDon', 'nHBAcc', 'MLogP', 'nRotB', 'TopoPSA', 'MW',
-             'XLogP']
-    X_mat = X.loc[:, props].values
+#     props = ['ALogP', 'ALogp2', 'AMR', 'nAcid', 'naAromAtom', 'nAromBond',
+#              'nBase', 'nB', 'nHBDon', 'nHBAcc', 'MLogP', 'nRotB', 'TopoPSA', 'MW',
+#              'XLogP']
+#     X_mat = X.loc[:, props].values
+    X_mat = X.loc[:, X.columns != 'Id'].values
 
     with open('model.pickle', 'rb') as handle:
         model = pickle.load(handle)
