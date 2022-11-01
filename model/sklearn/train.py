@@ -18,11 +18,11 @@ if __name__ == '__main__':
     X = pd.read_pickle(join(data_folder, "X.pk"))
     y = pd.read_pickle(join(data_folder, "Y.pk"))
 
-    # X_mat = X.loc[:, X.columns != 'Id'].values
-    props = ['ALogP', 'ALogp2', 'AMR', 'nAcid', 'naAromAtom', 'nAromBond',
-             'nBase', 'nB', 'nHBDon', 'nHBAcc', 'MLogP', 'nRotB', 'TopoPSA', 'MW',
-             'XLogP']
-    X_mat = X.loc[:, props].values
+    X_mat = X.loc[:, X.columns != 'Id'].values
+#     props = ['ALogP', 'ALogp2', 'AMR', 'nAcid', 'naAromAtom', 'nAromBond',
+#              'nBase', 'nB', 'nHBDon', 'nHBAcc', 'MLogP', 'nRotB', 'TopoPSA', 'MW',
+#              'XLogP']
+#    X_mat = X.loc[:, props].values
 
     y_vec = y.loc[:, y.columns != 'Id'].values.flatten()
     X_train, X_test, y_train, y_test = train_test_split(X_mat, y_vec, test_size=0.2, random_state=123)
@@ -42,7 +42,7 @@ if __name__ == '__main__':
         predictions = model.predict(X_test)
         score = f1_score(predictions, y_test, average=None)
         score2 = cohen_kappa_score(predictions, y_test)
-        print(f'Model:{cls}; score:{score2}')
+        print(f'Model:{cls}; score:{score2}; all_score:{score}')
 
         sum_score = score[0] + score[1]
         if score2 > best_model[1]:
