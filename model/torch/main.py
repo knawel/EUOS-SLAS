@@ -4,7 +4,7 @@ from torch.utils.data import random_split
 from src.dataset import MolDataset
 from torch.utils.data import DataLoader
 from config import config_data, config_runtime
-
+import joblib # to save scaler
 
 def train(config_data, config_runtime):
     # from src.logger import Logger
@@ -31,7 +31,7 @@ def train(config_data, config_runtime):
 
     n_categories = 3
     n_features = 42
-    learning_rate = 1e-4
+    learning_rate = 1e-5
     n_hidden = 512
     # n_layers = config_runtime['layers']
 
@@ -99,7 +99,12 @@ def train(config_data, config_runtime):
     print("Done!")
 
     pt.save(model.state_dict(), "model.pt")
-
+    
+    # save scaler 
+    scaler = dataset.get_scaler()
+    scaler_filename = "scaler.save"
+    joblib.dump(scaler, scaler_filename) 
+    
 
 if __name__ == '__main__':
     # train model

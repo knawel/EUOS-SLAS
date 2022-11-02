@@ -39,6 +39,9 @@ class MolDataset(pt.utils.data.Dataset):
 
     def __len__(self):
         return len(self.X_mat)
+    
+    def get_scaler(self):
+        return self.scaler
 
     def __getitem__(self, index):
 
