@@ -1,58 +1,70 @@
 import pandas as pd
 import sys
 import os
+from os.path import join
 
-# TODO:
-# - compare features of train and test sets
-
-
-# input files: [path, delimeter]
-X_file = ["../data/derived/train_cdk.des", ' ']
-Y_file = ["../data/raw/train.csv", ',']
-X_test_file = ["../data/derived/test_cdk.des", ' ']
-folder_put = "../data/preprocessed"
+# input files
+feature_files = ['cdk_descr.csv', 'substr_count.csv']
+train_raw_file = "../data/raw/train.csv"
+test_raw_file = "../data/raw/test.csv"
+folder_put = "../data/preprocessed/"
 
 # names of specific columns
 y_column_name = "sol_category"
-# ID of examples is 'Id'
 
-# read
-data = pd.read_csv(X_file[0], delimiter=X_file[1])
-data_y = pd.read_csv(Y_file[0], delimiter=Y_file[1])
-data_test = pd.read_csv(X_test_file[0], delimiter=X_test_file[1])
-sys.stdout.write("Data was imported \n")
+# read raw data
+train_raw_data = pd.read_csv(train_raw_file, index_col='Id')
+test_raw_data = pd.read_csv(test_raw_file, index_col='Id')
+# rename
+train_raw_data = train_raw_data.loc[:, [y_column_name]]
+train_raw_data.rename(columns={y_column_name: "Y"}, inplace=True)
 
-# rename and sort
-data_y = data_y.loc[:, ['Id', y_column_name]]
-data_y.rename(columns={y_column_name: "Y"}, inplace=True)
-data.rename(columns={'Title': 'Id'}, inplace=True)
-data_test.rename(columns={'Title': 'Id'}, inplace=True)
-data_y.sort_values(by='Id')
-data.sort_values(by='Id')
+# Read features
+features = []
+for f in feature_files:
+
+    dfile = join("../data/derived/", f)
+    data = pd.read_csv(dfile)
+    data.dropna(axis=1, inplace=True)
+
+    if not ('Id' in data.columns):
+        print('error')
+    else:
+        print('all good')
+    features.append(data)
+
+# combine features
+df = features[0]
+for d in features[1:]:
+    df = pd.merge(df, d, on='Id')
+
+df.set_index('Id', inplace=True)
+if df.isnull().values.any():
+    sys.stdout.write("Merge failed\n")
+else:
+    sys.stdout.write("Data was imported \n")
+
+train_raw_data.sort_index(inplace=True)
+test_raw_data.sort_index(inplace=True)
+train_indx = list(train_raw_data.index)
+test_indx  = list(test_raw_data.index)
+train_data = df.loc[train_indx,:]
+test_data = df.loc[test_indx,:]
+#Sort
+train_data.sort_index(inplace=True)
+test_data.sort_index(inplace=True)
 
 # check if the same Id for X and Y
-set_id_x = set(data['Id'])
-set_id_y = set(data_y['Id'])
+list_id_x = list(train_data.index)
+list_id_y = list(test_data.index)
+if (list_id_x == train_indx) and (list_id_y == test_indx):
+    sys.stdout.write("Data was splitted\n")
+else:
+    sys.stdout.write("errors with indexing\n")
 
-diff_size = len(set_id_x - set_id_y)
-if diff_size > 0:
-    sys.exit('Error. Different set of ID for X and Y dataset')
-
-list_id_x = list(set_id_x)
-list_id_y = list(set_id_y)
-for i, n in enumerate(list_id_x):
-    if n != list_id_y[i]:
-        sys.exit(f'Error. Id# {i} are different: {n} and {list_id_y[i]}')
-
-# placeholder for memory reduction
-df_train = data
-df_train_y = data_y
-df_test = data_test
-
-sys.stdout.write("Data was prepared \n")
-
-df_train.to_pickle(os.path.join(folder_put, "X.pk"))
-df_train_y.to_pickle(os.path.join(folder_put, "Y.pk"))
-df_test.to_pickle(os.path.join(folder_put, "test.pk"))
+# save files
+train_data.to_pickle(os.path.join(folder_put, "X.pk"))
+train_raw_data.to_pickle(os.path.join(folder_put, "Y.pk"))
+test_data.to_pickle(os.path.join(folder_put, "test.pk"))
 
 sys.stdout.write(f"Data was saved in {folder_put} \n")

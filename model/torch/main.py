@@ -16,13 +16,13 @@ def train(config_data, config_runtime):
 
 
     # read datasets
-    N = 5000
+    N = 15000
     dataset = MolDataset("../../data/preprocessed/X.pk", 
                          y_datafile="../../data/preprocessed/Y.pk", normal = True)
     train_dataset, test_dataset = random_split(dataset, [len(dataset) - N, N])
-
+    
     # log
-    print(f"length of the dataset is: {len(dataset)}")
+    # print(f"length of the dataset is: {len(dataset)}")
     # logger.print(get_stat_from_dataset(dataset))
     print(f"Train: {len(train_dataset)}")
     # logger.print(get_stat_from_dataset(train_dataset))
@@ -40,7 +40,7 @@ def train(config_data, config_runtime):
     print(model)
     
     # loss_fn = nn.CrossEntropyLoss()
-    class_weights = pt.Tensor([1.8, 1.8, 0.1])
+    class_weights = pt.Tensor([1.8, 1.8, 0.05])
     class_weights.to(device)
     loss_fn = nn.BCEWithLogitsLoss(weight=class_weights)
     loss_fn.to(device)

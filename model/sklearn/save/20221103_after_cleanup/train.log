@@ -1,0 +1,18 @@
+/home/dima/miniconda3/envs/ctpesto/lib/python3.10/site-packages/sklearn/linear_model/_stochastic_gradient.py:705: ConvergenceWarning: Maximum number of iteration reached before convergence. Consider increasing max_iter to improve the fit.
+  warnings.warn(
+Model:SGD; score:0.004352698484922035; all_score:[0.05939716 0.07236336 0.4723909 ]
+Model:MLP_1; score:0.006333132851673584; all_score:[0.01459854 0.         0.96428964]
+Model:K-neigh; score:0.017458073126694007; all_score:[0.04797048 0.00309598 0.9582257 ]
+/home/dima/miniconda3/envs/ctpesto/lib/python3.10/site-packages/sklearn/svm/_base.py:301: ConvergenceWarning: Solver terminated early (max_iter=1000).  Consider pre-processing your data with StandardScaler or MinMaxScaler.
+  warnings.warn(
+Model:SVN_1; score:0.023168195992209317; all_score:[0.06315789 0.07660455 0.82420014]
+Model:Tree; score:0.014146621662986969; all_score:[0.02797203 0.00343053 0.96370169]
+Model:Tree w; score:0.015624210201935274; all_score:[0.06084017 0.08171604 0.66368418]
+Model:Forest 1; score:0.006778173866063164; all_score:[0.01421801 0.00337268 0.96329434]
+Model:Forest 2; score:0.0038954886208459882; all_score:[0.00987654 0.         0.96437072]
+Model:Ada 1; score:0.010552489287116718; all_score:[0.02386635 0.         0.9642059 ]
+Model:GBCls; score:0.015399672671164488; all_score:[0.02380952 0.00679117 0.96388899]
+Model:LGBMC; score:0.025678622844011456; all_score:[0.04878049 0.0033557  0.9631778 ]
+Model:GaussNB; score:0.03407113452977062; all_score:[0.06777572 0.07312925 0.90399027]
+[Pipeline(steps=[('preprocessor', StandardScaler()),
+                ('classifier', GaussianNB())]), 0.03407113452977062]

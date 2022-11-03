@@ -18,13 +18,8 @@ if __name__ == '__main__':
     X = pd.read_pickle(join(data_folder, "X.pk"))
     y = pd.read_pickle(join(data_folder, "Y.pk"))
 
-    X_mat = X.loc[:, X.columns != 'Id'].values
-#     props = ['ALogP', 'ALogp2', 'AMR', 'nAcid', 'naAromAtom', 'nAromBond',
-#              'nBase', 'nB', 'nHBDon', 'nHBAcc', 'MLogP', 'nRotB', 'TopoPSA', 'MW',
-#              'XLogP']
-#    X_mat = X.loc[:, props].values
-
-    y_vec = y.loc[:, y.columns != 'Id'].values.flatten()
+    X_mat = X.values
+    y_vec = y.values.flatten()
     X_train, X_test, y_train, y_test = train_test_split(X_mat, y_vec, test_size=0.2, random_state=123)
 
     # collection of classifiers

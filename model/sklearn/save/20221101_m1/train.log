@@ -1,0 +1,11 @@
+Model:SGD; score:0.0
+Model:MLP_1; score:0.0076190607606260174
+Model:K-neigh; score:0.02140724693024154
+Model:SVN_1; score:0.0
+Model:Tree; score:0.017639450021990633
+Model:Tree w; score:0.014149212728287286
+Model:Forest 1; score:0.0076190607606260174
+Model:LGBMC; score:0.029900189916467257
+Model:GaussNB; score:0.031198035187363637
+[Pipeline(steps=[('preprocessor', StandardScaler()),
+                ('classifier', GaussianNB())]), 0.031198035187363637]
