@@ -20,7 +20,7 @@ if __name__ == '__main__':
 
     X_mat = X.values
     y_vec = y.values.flatten()
-    X_train, X_test, y_train, y_test = train_test_split(X_mat, y_vec, test_size=0.2, random_state=123)
+    X_train, X_test, y_train, y_test = train_test_split(X_mat, y_vec, test_size=0.12, random_state=123)
 
     # collection of classifiers
     classifiers = config.classifiers

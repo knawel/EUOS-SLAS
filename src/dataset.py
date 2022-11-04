@@ -2,7 +2,7 @@ import numpy as np
 import torch as pt
 import pandas as pd
 from os.path import join
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, Normalizer
 
 
 def encode_y(target, nb_classes=3):
@@ -31,10 +31,10 @@ class MolDataset(pt.utils.data.Dataset):
             self.y = None
         else:
             y = pd.read_pickle(y_datafile)
-            self.y = y.values.flatten()
+            self.y = np.array(y.values.flatten(), dtype=int)
         
         if normal:
-            self.scaler = StandardScaler()
+            self.scaler = Normalizer()
             self.X_mat = self.scaler.fit_transform(self.X_mat)
 
     def __len__(self):
@@ -46,4 +46,4 @@ class MolDataset(pt.utils.data.Dataset):
     def __getitem__(self, index):
         prop = self.X_mat[index, :]
         solubility = self.y[index]
-        return prop[None, :], encode_y(solubility, 3)
+        return prop, solubility, encode_y(solubility, 3)
