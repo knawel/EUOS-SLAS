@@ -5,6 +5,10 @@ from src.dataset import MolDataset
 from torch.utils.data import DataLoader
 from config import config_data, config_runtime
 import joblib # to save scaler
+import numpy as np
+from torch.utils.data import DataLoader
+from sklearn.metrics import f1_score, cohen_kappa_score
+import sys
 
 def train(config_data, config_runtime):
     # from src.logger import Logger
@@ -30,9 +34,9 @@ def train(config_data, config_runtime):
     # logger.print(get_stat_from_dataset(test_dataset))
 
     n_categories = 3
-    n_features = 42
+    n_features = 66
     learning_rate = 1e-5
-    n_hidden = 512
+    n_hidden = 256
     # n_layers = config_runtime['layers']
 
     
@@ -40,9 +44,10 @@ def train(config_data, config_runtime):
     print(model)
     
     # loss_fn = nn.CrossEntropyLoss()
-    class_weights = pt.Tensor([1.8, 1.8, 0.05])
-    class_weights.to(device)
-    loss_fn = nn.BCEWithLogitsLoss(weight=class_weights)
+    class_weights = pt.Tensor([1, 1, 0.05])
+  #  class_weights.to(device)
+   # loss_fn = nn.BCEWithLogitsLoss(weight=class_weights)
+    loss_fn = nn.CrossEntropyLoss()
     loss_fn.to(device)
     optimizer = pt.optim.Adam(model.parameters(), lr=learning_rate)
 
@@ -71,7 +76,7 @@ def train(config_data, config_runtime):
         size = len(dataloader.dataset)
         num_batches = len(dataloader)
         test_loss, correct = 0, 0
-
+        ts2 = 0
         with pt.no_grad():
             for X, Y in dataloader:
                 x = X.to(device)
@@ -79,6 +84,14 @@ def train(config_data, config_runtime):
                 pred = model(x)
                 test_loss += loss_fn(pred, y.float()).item()
         #             correct += (pred.argmax(1) == y).type(torch.float).sum().item()
+                m = pred.squeeze(1)
+                pred_probab = nn.Softmax(dim=1)(m)
+                pred_cats = np.array(pred_probab.argmax(1).cpu())
+                true_cat = Y.argmax(1).cpu()
+                ts = f1_score(pred_cats, true_cat, average=None)
+                print(ts)
+                ts2 += cohen_kappa_score(pred_cats, true_cat)
+        print(ts2)
 
         test_loss /= num_batches
         #     correct /= size
@@ -86,9 +99,9 @@ def train(config_data, config_runtime):
         print(f"Avg loss: {test_loss:>8f} \n")
 
     # train model
-    train_dataloader = DataLoader(train_dataset, batch_size=2048,
+    train_dataloader = DataLoader(train_dataset, batch_size=1024,
                                   shuffle=True, pin_memory=True)
-    test_dataloader = DataLoader(test_dataset, batch_size=2048,
+    test_dataloader = DataLoader(test_dataset, batch_size=1024,
                                  shuffle=True, pin_memory=True)
     epochs = 150
     for t in range(epochs):

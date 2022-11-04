@@ -25,13 +25,13 @@ class MolDataset(pt.utils.data.Dataset):
         super(MolDataset).__init__()
         # Read file with descriptors
         X = pd.read_pickle(final_dataset_file)
-        self.X_mat = np.array(X.loc[:, X.columns != 'Id'].values, dtype=np.float32)
+        self.X_mat = np.array(X.values, dtype=np.float32)
         # Read Y values
         if y_datafile is None:
             self.y = None
         else:
             y = pd.read_pickle(y_datafile)
-            self.y = y.loc[:, y.columns != 'Id'].values.flatten()
+            self.y = y.values.flatten()
         
         if normal:
             self.scaler = StandardScaler()
@@ -44,7 +44,6 @@ class MolDataset(pt.utils.data.Dataset):
         return self.scaler
 
     def __getitem__(self, index):
-
         prop = self.X_mat[index, :]
         solubility = self.y[index]
-        return prop[None,:], encode_y(solubility,3)
+        return prop[None, :], encode_y(solubility, 3)

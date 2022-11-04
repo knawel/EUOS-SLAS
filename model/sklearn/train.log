@@ -1,18 +1,16 @@
-/home/dima/miniconda3/envs/ctpesto/lib/python3.10/site-packages/sklearn/linear_model/_stochastic_gradient.py:705: ConvergenceWarning: Maximum number of iteration reached before convergence. Consider increasing max_iter to improve the fit.
-  warnings.warn(
-Model:SGD; score:0.004352698484922035; all_score:[0.05939716 0.07236336 0.4723909 ]
-Model:MLP_1; score:0.006333132851673584; all_score:[0.01459854 0.         0.96428964]
-Model:K-neigh; score:0.017458073126694007; all_score:[0.04797048 0.00309598 0.9582257 ]
+Model:SGD; score:-0.006553156750997768; all_score:[0.03484663 0.07177914 0.68999093]
+Model:MLP_1; score:0.0055235768892504256; all_score:[0.01466993 0.         0.96429225]
+Model:K-neigh; score:0.0275381050417024; all_score:[0.04832714 0.01242236 0.95904664]
 /home/dima/miniconda3/envs/ctpesto/lib/python3.10/site-packages/sklearn/svm/_base.py:301: ConvergenceWarning: Solver terminated early (max_iter=1000).  Consider pre-processing your data with StandardScaler or MinMaxScaler.
   warnings.warn(
-Model:SVN_1; score:0.023168195992209317; all_score:[0.06315789 0.07660455 0.82420014]
-Model:Tree; score:0.014146621662986969; all_score:[0.02797203 0.00343053 0.96370169]
-Model:Tree w; score:0.015624210201935274; all_score:[0.06084017 0.08171604 0.66368418]
-Model:Forest 1; score:0.006778173866063164; all_score:[0.01421801 0.00337268 0.96329434]
-Model:Forest 2; score:0.0038954886208459882; all_score:[0.00987654 0.         0.96437072]
-Model:Ada 1; score:0.010552489287116718; all_score:[0.02386635 0.         0.9642059 ]
-Model:GBCls; score:0.015399672671164488; all_score:[0.02380952 0.00679117 0.96388899]
-Model:LGBMC; score:0.025678622844011456; all_score:[0.04878049 0.0033557  0.9631778 ]
-Model:GaussNB; score:0.03407113452977062; all_score:[0.06777572 0.07312925 0.90399027]
+Model:SVN_1; score:0.010291262087634756; all_score:[0.05250597 0.06345476 0.82795653]
+Model:Tree; score:0.011029538760474966; all_score:[0.0234192  0.00341297 0.96351703]
+Model:Tree w; score:0.01375965662223888; all_score:[0.06034063 0.08008357 0.67125494]
+Model:Forest 1; score:0.006051237717816904; all_score:[0.01411765 0.00340136 0.96329703]
+Model:Forest 2; score:-9.983922841239057e-05; all_score:[0.         0.         0.96426218]
+Model:Ada 1; score:0.010660687080230935; all_score:[0.02392344 0.         0.96424385]
+Model:GBCls; score:0.015187724909370703; all_score:[0.03501946 0.01141227 0.95733442]
+Model:LGBMC; score:0.02978146305768803; all_score:[0.05676856 0.01008403 0.9630228 ]
+Model:GaussNB; score:0.040139956866889315; all_score:[0.07413011 0.07686275 0.91182997]
 [Pipeline(steps=[('preprocessor', StandardScaler()),
-                ('classifier', GaussianNB())]), 0.03407113452977062]
+                ('classifier', GaussianNB())]), 0.040139956866889315]
