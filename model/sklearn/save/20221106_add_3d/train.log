@@ -1,0 +1,17 @@
+Model:SGD; score:-0.007260824764894869; all_score:[0.04784437 0.0615016  0.4788072 ]
+Model:MLP_1; score:0.010830192777670167; all_score:[0.0244898  0.         0.96428353]
+Model:K-neigh; score:0.031829431408501696; all_score:[0.06711409 0.0106383  0.96085409]
+/home/dima/miniconda3/envs/ctpesto/lib/python3.10/site-packages/sklearn/svm/_base.py:301: ConvergenceWarning: Solver terminated early (max_iter=1000).  Consider pre-processing your data with StandardScaler or MinMaxScaler.
+  warnings.warn(
+Model:SVN_1; score:0.036703960926974366; all_score:[0.0814743  0.07017544 0.84918761]
+Model:Tree; score:0.03719008977222216; all_score:[0.06896552 0.         0.96429008]
+Model:Tree w; score:0.015091510657388563; all_score:[0.06144928 0.08134758 0.54473304]
+Model:Forest 1; score:0.0; all_score:[0.         0.         0.96417455]
+Model:Forest 2; score:0.0; all_score:[0.         0.         0.96417455]
+Model:Ada 1; score:0.02107488186157014; all_score:[0.03952569 0.         0.96438825]
+Model:GBCls; score:0.037558302520046105; all_score:[0.0569395  0.00547945 0.9630038 ]
+Model:LGBMC; score:0.05550196631297777; all_score:[0.09122807 0.         0.96430976]
+Model:GaussNB; score:0.004453054659876443; all_score:[0.08133087 0.07904825 0.20663208]
+[Pipeline(steps=[('preprocessor', StandardScaler()),
+                ('classifier',
+                 LGBMClassifier(class_weight={0: 5, 1: 5, 2: 1}))]), 0.05550196631297777]

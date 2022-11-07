@@ -15,8 +15,8 @@ import config
 if __name__ == '__main__':
     # train model
     data_folder = config.config_data['dataset_filepath']
-    X = pd.read_pickle(join(data_folder, "X.pk"))
-    y = pd.read_pickle(join(data_folder, "Y.pk"))
+    X = pd.read_pickle(join(data_folder, "X.pk.zip"))
+    y = pd.read_pickle(join(data_folder, "Y.pk.zip"))
 
     X_mat = X.values
     y_vec = y.values.flatten()
