@@ -1,4 +1,5 @@
 import pickle
+import sys
 
 import pandas as pd
 from os.path import join
@@ -21,7 +22,7 @@ if __name__ == '__main__':
     X_mat = X.values
     y_vec = y.values.flatten()
     X_train, X_test, y_train, y_test = train_test_split(X_mat, y_vec, test_size=0.12, random_state=123)
-
+    sys.stdout.write(f"The number of features: {X_mat.shape[1]}\n")
     # collection of classifiers
     classifiers = config.classifiers
 

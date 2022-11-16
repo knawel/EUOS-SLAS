@@ -21,8 +21,8 @@ def train(config_data, config_runtime):
 
     # read datasets
     N = 15000
-    dataset = MolDataset("../../data/preprocessed/X.pk", 
-                         y_datafile="../../data/preprocessed/Y.pk", normal = True)
+    dataset = MolDataset("../../data/preprocessed/X.pk.zip",
+                         y_datafile="../../data/preprocessed/Y.pk.zip", normal = True)
     train_dataset, test_dataset = random_split(dataset, [len(dataset) - N, N])
     
     # log
@@ -34,7 +34,7 @@ def train(config_data, config_runtime):
     # logger.print(get_stat_from_dataset(test_dataset))
 
     n_categories = 3
-    n_features = 66
+    n_features = 214
     learning_rate = 1e-5
     n_hidden = 256
     # n_layers = config_runtime['layers']
@@ -122,3 +122,4 @@ def train(config_data, config_runtime):
 if __name__ == '__main__':
     # train model
     train(config_data, config_runtime)
+
