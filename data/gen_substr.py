@@ -14,7 +14,11 @@ substr_list = [
     '[#7;R][#6;R]~[O;D1]', '[r5][#7][#6](=O)C', '[r5][#7]C(=O)NC',
     '[R]S(=O)(=O)N(C)C', '[#16][#6;R][#6;R]~O', '[P]=O', '[B]~O',
     'O=CN[c;r6]', '[R]S(=O)[#6]', '[R]S(=O)(=O)[#6]', 'N=O', 'O=C*C=O',
-    'O=[#16;R]=O', 'N*N', 'N*(=O)N'
+    'O=[#16;R]=O', 'N*N', 'N*(=O)N',
+    # insoluble frags
+    'NCCN', 'NCCCN', 'NCCCCN', '[r6]*(=O)N', '[C;R]*(=O)N',
+    # soluble fragments
+    '[C;D1]', '[r5]*(=O)N', '[a;R]S(=O)=O'
 ]
 
 smiles = []
