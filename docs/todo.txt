@@ -1,0 +1,1 @@
+- add chemical structures with names (sma_xx)

@@ -34,18 +34,23 @@ All derivative data is stored in `derived` folder.
 3. Calculate fragments composition by **gen_substr.py**
 4. Generate 3D structures by ballon (3d), protonate by open babel at pH=7 (3dH)
 5. Generate descriptors (CDK and BleDesc)
+6. Collect the data using *preprocess.py*
 
 The final pre-computed parameters are in the **preprocessed** folder.
 
+## Pre-computed parameters
+
+There are 203 parameter (see the names in [file](docs/parameters.txt))
+- 151 physico-chemical descriptors ()
+- 52 chemical fragments 
+
  
-## Data
+## Files with data
 
 All data is stored in data folder:
+
 ```
 data/
-├── derived
-│   ├── compounds_desalt.smi
-│   └── compounds.smi
 ├── generate_smi.sh
 ├── preprocessed
 │   ├── test.pk
@@ -60,9 +65,6 @@ data/
     └── train.csv
 ```
 Add data file should contain 'Id' field with IDs of the molecules.
-
-
-   
 
 The final data for ML/NN is in the `preprocessed` folder (pandas pickle files).
 Data is raw (not normalized)
