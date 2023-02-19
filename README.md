@@ -6,6 +6,7 @@ There are several model, the best one is 27th place in the leaderboard.
 
 # Abstract
 ![image](docs/intro.png)
+
 The solubility is quite challenging parameter for prediction, a lot of factors influence on it: hydrophilicity, polarity, dipol moment, 
 flexibility, charges, 3D shape of the molecule. So, it seems important to give to the model these pre-computed parameters. 
 Moreover, in the medicinal chemistry there are known fragments/groups which usually increase / decrease solubility.
