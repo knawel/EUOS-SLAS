@@ -1,0 +1,7 @@
+The number of features: 203
+TRAIN     0: 1878, 1: 2573, 2: 60603
+TEST      0: 163, 1: 262, 2: 5232
+Making model for n steps = 200
+Scores
+[0.13253012 0.08897485 0.93225036 0.0830341  0.11542191]
+Model was saved.

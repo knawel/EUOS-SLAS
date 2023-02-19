@@ -23,7 +23,8 @@ if __name__ == '__main__':
 
     X_mat = X.values
     y_vec = y.values.flatten()
-    X_train, X_test, y_train, y_test = train_test_split(X_mat, y_vec, test_size=0.10, random_state=100)
+    X_train, X_test, y_train, y_test = train_test_split(X_mat, y_vec,
+                                                        test_size=0.08, random_state=100)
     sys.stdout.write(f"The number of features: {X_mat.shape[1]}\n")
     sys.stdout.write(f"TRAIN \
     0: {np.sum(y_train == 0)}, 1: {np.sum(y_train == 1)}, 2: {np.sum(y_train == 2)}\n")
@@ -54,54 +55,51 @@ if __name__ == '__main__':
 
     # params['max_depth']=10
 
-    scores = []
-    d_step = 70
-    n_s = 5
-    for i in range(n_s):
-        steps = (i + 1) * d_step
-        sys.stdout.write(f'iter {i+1}, steps = {steps}\n')
-        bst = lgb.train(params, train_data, steps)  # , feval=kappa_metric)
-        y_predicted = bst.predict(X_test_sc)
-        ypr = [np.argmax(line) for line in y_predicted]
-        k_score = cohen_kappa_score(y_test, ypr)
-        kk_score = quadratic_kappa_score(y_test, ypr)
-        f1_scores = f1_score(y_test, ypr, average=None)
-        s = np.append(f1_scores, k_score)
-        s = np.append(s, kk_score)
-        scores.append(s)
+   # scores = []
+   # d_step = 40
+   # n_s = 8
+   # for i in range(n_s):
+   #     steps = (i + 1) * d_step
+   #     sys.stdout.write(f'iter {i+1}, steps = {steps}\n')
+   #     bst = lgb.train(params, train_data, steps)  # , feval=kappa_metric)
+   #     y_predicted = bst.predict(X_test_sc)
+   #     ypr = [np.argmax(line) for line in y_predicted]
+   #     k_score = cohen_kappa_score(y_test, ypr)
+   #     kk_score = quadratic_kappa_score(y_test, ypr)
+   #     f1_scores = f1_score(y_test, ypr, average=None)
+   #     s = np.append(f1_scores, k_score)
+   #     s = np.append(s, kk_score)
+   #     scores.append(s)
 
-    scores = np.array(scores)
-    print(scores)
-    # with open('model.pickle', 'wb') as handle:
-    #     pickle.dump(best_model[0], handle, protocol=pickle.HIGHEST_PROTOCOL)
-    plt.plot(np.arange(1, n_s + 1) * d_step, scores[:, 3], '-o', label="Cohen Kappa")
-    plt.plot(np.arange(1, n_s + 1) * d_step, scores[:, 4], '-o', label="Quadratic Kappa")
-    plt.plot(np.arange(1, n_s + 1) * d_step, scores[:, 0], '-.', label='F1 for "0"')
-    plt.plot(np.arange(1, n_s + 1) * d_step, scores[:, 1], '-.', label='F1 for "1"')
-    plt.legend()
-    plt.savefig("scores_vs_steps.png")
+   # scores = np.array(scores)
+   # print(scores)
+   # # with open('model.pickle', 'wb') as handle:
+   # #     pickle.dump(best_model[0], handle, protocol=pickle.HIGHEST_PROTOCOL)
+   # plt.plot(np.arange(1, n_s + 1) * d_step, scores[:, 3], '-o', label="Cohen Kappa")
+   # plt.plot(np.arange(1, n_s + 1) * d_step, scores[:, 4], '-o', label="Quadratic Kappa")
+   # plt.plot(np.arange(1, n_s + 1) * d_step, scores[:, 0], '-.', label='F1 for "0"')
+   # plt.plot(np.arange(1, n_s + 1) * d_step, scores[:, 1], '-.', label='F1 for "1"')
+   # plt.legend()
+   # plt.savefig("scores_vs_steps.png")
 
-    sys.stdout.write('Figure was saved\n')
+   # sys.stdout.write('Figure was saved\n')
 
     # # use the model with optimal nsteps
-    # n_steps = 150
-    # sys.stdout.write(f'Making model for n steps = {n_steps}\n')
-    #
-    # bst = lgb.train(params, train_data, n_steps)  # , feval=kappa_metric)
-    # y_predicted = bst.predict(X_test_sc)
-    # ypr = [np.argmax(line) for line in y_predicted]
-    # k_score = cohen_kappa_score(y_test, ypr)
-    # kk_score = calc_custom_kappa(y_test, ypr)
-    # f1_scores = f1_score(y_test, ypr, average=None)
-    # s = np.append(f1_scores, k_score)
-    # s = np.append(s, kk_score)
-    # sys.stdout.write('Scores\n')
-    # print(s)
-    #
-    # with open('model.pickle', 'wb') as handle:
-    #     pickle.dump([scaler, bst], handle, protocol=pickle.HIGHEST_PROTOCOL)
-    #
-    # sys.stdout.write('Model was saved.\n')
+    n_steps = 200
+    sys.stdout.write(f'Making model for n steps = {n_steps}\n')
+    bst = lgb.train(params, train_data, n_steps)  # , feval=kappa_metric)
+    y_predicted = bst.predict(X_test_sc)
+    ypr = [np.argmax(line) for line in y_predicted]
+    k_score = cohen_kappa_score(y_test, ypr)
+    kk_score = quadratic_kappa_score(y_test, ypr)
+    f1_scores = f1_score(y_test, ypr, average=None)
+    s = np.append(f1_scores, k_score)
+    s = np.append(s, kk_score)
+    sys.stdout.write('Scores\n')
+    print(s)
+    with open('model.pickle', 'wb') as handle:
+        pickle.dump([scaler, bst], handle, protocol=pickle.HIGHEST_PROTOCOL)
+    sys.stdout.write('Model was saved.\n')
 
 
 
